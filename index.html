@@ -72,6 +72,52 @@
     padding:14px 12px calc(env(safe-area-inset-bottom,0px) + 18px);background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.8))}
   .esc-b{min-height:48px;padding:0 18px;border-radius:24px;border:0;background:rgba(255,255,255,.22);color:#fff;font-size:15px;
     font-weight:800;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+  /* 🧾 [CUENTA-PORTAL] la cuenta: sumar los precios mientras se buscan (solo en este teléfono; se borra con la venta) */
+  .item-fila{display:flex;gap:10px;align-items:flex-start}
+  .item-fila .datos{flex:1;min-width:0}
+  .sumar{flex:0 0 auto;min-width:76px;min-height:48px;padding:0 8px;border-radius:12px;border:2px solid var(--brand);
+    background:#fff;color:var(--brand);font-size:15px;font-weight:800;cursor:pointer;touch-action:manipulation}
+  .sumar.va{background:var(--brand);color:#fff}
+  body.con-cuenta .caja{padding-bottom:96px}
+  body.con-cuenta .pie{padding-bottom:110px}
+  .cta-barra{position:fixed;left:0;right:0;bottom:0;z-index:50;width:100%;border:0;margin:0;background:var(--brand);
+    color:#fff;padding:11px 14px calc(env(safe-area-inset-bottom,0px) + 11px);display:flex;align-items:center;gap:10px;
+    box-shadow:0 -4px 16px rgba(0,0,0,.28);cursor:pointer;text-align:left;font-family:inherit;touch-action:manipulation}
+  .cta-barra .t{display:block;flex:1;min-width:0}
+  .cta-barra .g{display:block;font-size:19px;font-weight:900;line-height:1.2}
+  .cta-barra .p{display:block;font-size:12px;opacity:.92;margin-top:2px}
+  .cta-barra .v{flex:0 0 auto;background:#fff;color:var(--brand);border-radius:20px;padding:8px 14px;font-weight:800;
+    font-size:14px}
+  .cta-ov{position:fixed;top:0;left:0;right:0;bottom:0;z-index:60;background:rgba(0,0,0,.45);display:flex;
+    flex-direction:column;justify-content:flex-end}
+  .cta-hoja{background:var(--bg);border-radius:16px 16px 0 0;max-height:90vh;display:flex;flex-direction:column;
+    padding-bottom:env(safe-area-inset-bottom,0px)}
+  .cta-cab{display:flex;align-items:center;gap:10px;padding:14px 14px 10px}
+  .cta-cab b{flex:1;font-size:18px}
+  .cta-cerrar{border:1px solid #ccc;background:#fff;border-radius:20px;padding:10px 14px;font-weight:800;font-size:14px;
+    cursor:pointer;color:var(--texto)}
+  .cta-lista{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 12px 4px;flex:1}
+  .cta-it{background:#fff;border-radius:12px;padding:10px 10px 10px 12px;margin-bottom:7px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+  .cta-it .r1{display:flex;gap:8px;align-items:flex-start}
+  .cta-it .nm{flex:1;min-width:0;font-weight:700;font-size:14px;line-height:1.25;word-break:break-word}
+  .cta-x{flex:0 0 auto;width:44px;height:44px;border-radius:22px;border:0;background:#FDECEA;font-size:17px;
+    cursor:pointer;touch-action:manipulation}
+  .cta-it .r2{display:flex;align-items:center;gap:8px;margin-top:7px}
+  .cta-cant{display:flex;align-items:center;gap:4px}
+  .cta-cant button{width:42px;height:42px;border-radius:10px;border:1px solid var(--brand);background:#fff;
+    color:var(--brand);font-size:21px;font-weight:800;cursor:pointer;touch-action:manipulation}
+  .cta-cant input{width:66px;height:42px;text-align:center;font-size:16px;font-weight:800;border:1px solid #ccc;
+    border-radius:10px;background:#fff}
+  .cta-it .sub2{flex:1;text-align:right;font-size:12px;color:#777;line-height:1.3}
+  .cta-it .sub2 b{display:block;font-size:16px;color:var(--brand)}
+  .cta-tot{padding:12px 14px 4px;border-top:2px solid #E0D5CC;background:#fff}
+  .cta-tot .g{font-size:24px;font-weight:900;color:var(--brand);line-height:1.2}
+  .cta-tot .l{font-size:12px;color:#777;margin-top:3px;line-height:1.4}
+  .cta-borrar{display:block;width:calc(100% - 28px);margin:10px 14px 14px;min-height:52px;border-radius:12px;border:0;
+    background:#B71C1C;color:#fff;font-size:16px;font-weight:800;cursor:pointer;touch-action:manipulation}
+  .cta-aviso{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);z-index:70;background:#1B5E20;color:#fff;
+    padding:10px 16px;border-radius:22px;font-weight:700;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.3);
+    max-width:90vw;text-align:center;pointer-events:none}
 </style>
 </head>
 <body>
@@ -103,8 +149,11 @@
   Precios en <b>$</b> del <b>21-10-2026</b>.<br>
   <span id="pie-tasa">Buscando la tasa del BCV…</span><br>
   Guardala en la pantalla de inicio del teléfono: después abre sin internet.<br>
+  🧾 Con ➕ vas sumando la cuenta (queda solo en este teléfono y se borra con «Venta hecha»).<br>
   Si un precio en $ cambió después de esa fecha, manda el del sistema.
 </div>
+<!-- 🧾 [CUENTA-PORTAL] -->
+<button id="cta-barra" class="cta-barra" type="button" onclick="abrirCuenta()" style="display:none"></button>
 
 <script>
 // TODOS los precios viajan adentro de esta página: no le pide nada a ningún
@@ -165,7 +214,8 @@ function tarjeta(p, t) {
   const totalBs = TASA > 0 ? baseBs * (1 + iva / 100) : 0;
   const ivaBs = totalBs - baseBs;
   const sis = p[4] === 3 ? "S1 + S2" : (p[4] === 1 ? "Sistema 1" : "Sistema 2");
-  return '<div class="item">' +
+  const k = POS.get(p), ya = ctaDe(k);                     // 🧾 [CUENTA-PORTAL]
+  return '<div class="item"><div class="item-fila"><div class="datos">' +
     '<div class="nom">' + nom + '<span class="sis">' + sis + '</span></div>' +
     '<div class="cod">' + p[0] + '</div>' +
     '<div class="precio">' + (iva > 0 ? "🧾" : "💵") + ' $ ' + nf(usd, 2) +
@@ -175,7 +225,8 @@ function tarjeta(p, t) {
     (TASA > 0 ? '<div class="linea">' + (iva > 0
         ? 'Base imponible: Bs ' + nf(baseBs, 2) + ' &nbsp;+&nbsp; IVA: Bs ' + nf(ivaBs, 2) + '<br>'
         : '') + 'Bs calculados a la tasa de hoy: ' + nf(TASA, 2) + '</div>' : '') +
-    '</div>';
+    '</div><button type="button" class="sumar' + (ya ? ' va' : '') + '" data-k="' + k + '" onclick="sumar(' + k +
+      ', this)">' + ctaEtiqueta(ya) + '</button></div></div>';
 }
 
 function pintar(lista, term) {
@@ -212,6 +263,180 @@ function buscar() {
     if (norm(p[1]).startsWith(t)) empiezan.push(p); else contienen.push(p);
   }
   pintar(exactos.concat(empiezan, contienen), term);
+}
+
+// ---------------------------------------------------------------- 🧾 LA CUENTA [CUENTA-PORTAL]
+// (21-10-2026, Tulio) «poder cuantificar la venta… lo tenemos que sacar precio por precio y vamos sumando… se hace
+// la venta y lo borra, no se queda ningún historial… ver el precio y sumarle la cuenta, si hace falta o eliminarlo
+// con una X». Cada ➕ suma ese producto; abajo, la barra con el total ($ y Bs a la tasa de hoy); tocándola se ve cada
+// renglón con − / + (o la cantidad escrita: 0,75 si es por kilo) y ❌ para quitarlo. «Venta hecha» la borra.
+// Vive SOLO en este teléfono mientras la página esté abierta (sessionStorage): no va a ningún servidor ni queda
+// historial. Los Bs: $ × tasa del día por renglón (como la caja: el $ ya trae el IVA).
+const POS = new Map(P.map((p, i) => [p, i]));
+let CTA = [];
+try { CTA = JSON.parse(sessionStorage.getItem("sb_cuenta") || "[]") || []; } catch (e) { CTA = []; }
+if (!Array.isArray(CTA)) CTA = [];
+function ctaGuardar() { try { sessionStorage.setItem("sb_cuenta", JSON.stringify(CTA)); } catch (e) {} }
+function ctaClave(p) { return p[0] + "|" + p[2] + "|" + p[4]; }
+function ctaDe(k) {
+  const p = P[k];
+  if (!p) return null;
+  const c = ctaClave(p);
+  return CTA.find(x => x.c === c) || null;
+}
+const r2 = (n) => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
+const r3 = (n) => Math.round(Number(n) * 1000) / 1000;
+function nfCant(n) { return Number.isInteger(n) ? String(n) : nf(n, 3).replace(/0+$/, "").replace(/,$/, ""); }
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+}
+function ctaEtiqueta(x) { return x ? "➕ (" + nfCant(x.n) + ")" : "➕ Sumar"; }
+function sumar(k, btn) {
+  const p = P[k];
+  if (!p) return;
+  let x = ctaDe(k);
+  if (x) x.n = r3(x.n + 1);
+  else { x = { c: ctaClave(p), cod: p[0], d: p[1], u: p[2], v: p[3], n: 1 }; CTA.push(x); }
+  ctaGuardar();
+  if (btn) { btn.className = "sumar va"; btn.textContent = ctaEtiqueta(x); }
+  ctaBarra();
+  ctaAviso("➕ " + String(p[1]).slice(0, 38) + (x.n !== 1 ? " · van " + nfCant(x.n) : ""));
+}
+function ctaTotales() {
+  let usd = 0, bs = 0, base = 0;
+  CTA.forEach(x => {
+    usd += r2(x.u * x.n);
+    if (TASA > 0) {
+      const lb = r2(x.u * TASA * x.n);
+      bs += lb;
+      base += x.v > 0 ? lb / (1 + x.v / 100) : lb;
+    }
+  });
+  return { usd: r2(usd), bs: r2(bs), iva: r2(bs - base) };
+}
+function ctaBarra() {
+  const b = document.getElementById("cta-barra");
+  if (!b) return;
+  if (!CTA.length) { b.style.display = "none"; document.body.classList.remove("con-cuenta"); return; }
+  const t = ctaTotales();
+  b.innerHTML = '<span class="t"><span class="g">🧾 $ ' + nf(t.usd, 2) + (TASA > 0 ? ' · Bs ' + nf(t.bs, 2) : '') + '</span>' +
+    '<span class="p">' + CTA.length + (CTA.length === 1 ? ' producto' : ' productos') + ' en la cuenta · tocá para verla</span></span>' +
+    '<span class="v">Ver ▴</span>';
+  b.style.display = "";
+  document.body.classList.add("con-cuenta");
+}
+// los ➕ de la lista de resultados, sin repintarla (la pantalla no salta)
+function ctaBotones() {
+  document.querySelectorAll(".sumar[data-k]").forEach(b => {
+    const x = ctaDe(Number(b.dataset.k));
+    b.className = "sumar" + (x ? " va" : "");
+    b.textContent = ctaEtiqueta(x);
+  });
+}
+let ctaAvT = null;
+function ctaAviso(txt) {
+  let a = document.getElementById("cta-aviso");
+  if (!a) { a = document.createElement("div"); a.id = "cta-aviso"; a.className = "cta-aviso"; document.body.appendChild(a); }
+  a.textContent = txt;
+  a.style.display = "";
+  clearTimeout(ctaAvT);
+  ctaAvT = setTimeout(() => { a.style.display = "none"; }, 1600);
+}
+function cerrarCuenta() {
+  const o = document.getElementById("cta-ov");
+  if (o) o.remove();
+  ctaBotones();
+}
+function abrirCuenta() {
+  if (!CTA.length) return;
+  const o0 = document.getElementById("cta-ov");
+  if (o0) o0.remove();
+  const ov = document.createElement("div");
+  ov.className = "cta-ov";
+  ov.id = "cta-ov";
+  ov.innerHTML = '<div class="cta-hoja"><div class="cta-cab"><b>🧾 La cuenta</b>' +
+    '<button type="button" class="cta-cerrar">‹ Seguir buscando</button></div>' +
+    '<div class="cta-lista" id="cta-lista"></div><div class="cta-tot" id="cta-tot"></div>' +
+    '<button type="button" class="cta-borrar" id="cta-borrar">🗑️ Venta hecha: borrar la cuenta</button></div>';
+  document.body.appendChild(ov);
+  ov.addEventListener("click", (e) => { if (e.target === ov) cerrarCuenta(); });
+  ov.querySelector(".cta-cerrar").onclick = cerrarCuenta;
+  const bb = ov.querySelector("#cta-borrar");
+  bb.onclick = () => {
+    if (!bb.dataset.seguro) {                       // dos toques: que no se borre una cuenta por un roce
+      bb.dataset.seguro = "1";
+      bb.textContent = "¿Seguro? Tocá otra vez para borrarla";
+      setTimeout(() => { if (bb.isConnected) { delete bb.dataset.seguro; bb.textContent = "🗑️ Venta hecha: borrar la cuenta"; } }, 3500);
+      return;
+    }
+    CTA = [];
+    ctaGuardar();
+    cerrarCuenta();
+    ctaBarra();
+    ctaAviso("🗑️ Cuenta borrada");
+  };
+  const L = ov.querySelector("#cta-lista");
+  L.addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    const i = Number(b.dataset.i != null ? b.dataset.i : (b.dataset.m != null ? b.dataset.m : b.dataset.p));
+    const x = CTA[i];
+    if (!x) return;
+    if (b.dataset.i != null) CTA.splice(i, 1);                         // ❌ quitarlo
+    else if (b.dataset.m != null) { if (x.n > 1) x.n = r3(x.n - 1); }  // − (no baja de 1: para quitarlo está la ❌)
+    else x.n = r3(x.n + 1);                                            // +
+    ctaGuardar();
+    ctaBarra();
+    if (!CTA.length) { cerrarCuenta(); return; }
+    ctaPintarHoja();
+  });
+  L.addEventListener("input", (e) => {                 // la cantidad escrita (0,75 kg): sin repintar la lista
+    const inp = e.target.closest("input[data-n]");
+    if (!inp) return;
+    const x = CTA[Number(inp.dataset.n)];
+    const v = Number(String(inp.value || "").trim().replace(",", "."));
+    if (!x || !isFinite(v) || v <= 0 || v >= 100000) return;
+    x.n = r3(v);
+    ctaGuardar();
+    ctaBarra();
+    const s = L.querySelector('[data-s="' + inp.dataset.n + '"]');
+    if (s) s.innerHTML = ctaSubHtml(x);
+    ctaPintarTotal();
+  });
+  L.addEventListener("change", (e) => {
+    const inp = e.target.closest("input[data-n]");
+    const x = inp && CTA[Number(inp.dataset.n)];
+    if (x) inp.value = nfCant(x.n);
+  });
+  ctaPintarHoja();
+}
+function ctaSubHtml(x) {
+  return '<b>$ ' + nf(r2(x.u * x.n), 2) + '</b>' + (TASA > 0 ? 'Bs ' + nf(r2(x.u * TASA * x.n), 2) : '');
+}
+function ctaPintarTotal() {
+  const T = document.getElementById("cta-tot");
+  if (!T) return;
+  const t = ctaTotales();
+  T.innerHTML = '<div class="g">Total: $ ' + nf(t.usd, 2) + '</div>' + (TASA > 0
+    ? '<div class="g" style="font-size:21px;">Bs ' + nf(t.bs, 2) + '</div>' +
+      '<div class="l">' + (t.iva > 0 ? 'Base Bs ' + nf(r2(t.bs - t.iva), 2) + ' + IVA Bs ' + nf(t.iva, 2) + ' · ' : '') +
+      'tasa ' + nf(TASA, 2) + (TASA_ORIGEN === "hoy" ? ' (BCV de hoy)' : ' (la última guardada, del ' + (TASA_FECHA || "?") + ')') + '</div>'
+    : '<div class="l">Sin la tasa del BCV: el total va solo en $.</div>');
+}
+function ctaPintarHoja() {
+  const L = document.getElementById("cta-lista");
+  if (!L) return;
+  const y = L.scrollTop;
+  L.innerHTML = CTA.map((x, i) => '<div class="cta-it"><div class="r1"><div class="nm">' + esc(x.d) +
+      '<div class="cod">' + esc(x.cod) + ' · $ ' + nf(x.u, 2) + (TASA > 0 ? ' · Bs ' + nf(r2(x.u * TASA), 2) : '') +
+      (x.v > 0 ? ' · IVA ' + nf(x.v, 0) + '%' : ' · exento') + '</div></div>' +
+      '<button type="button" class="cta-x" data-i="' + i + '" aria-label="Quitar de la cuenta">❌</button></div>' +
+      '<div class="r2"><div class="cta-cant"><button type="button" data-m="' + i + '" aria-label="Uno menos">−</button>' +
+      '<input inputmode="decimal" autocomplete="off" data-n="' + i + '" value="' + nfCant(x.n) + '" aria-label="Cantidad">' +
+      '<button type="button" data-p="' + i + '" aria-label="Uno más">+</button></div>' +
+      '<div class="sub2" data-s="' + i + '">' + ctaSubHtml(x) + '</div></div></div>').join("");
+  L.scrollTop = y;
+  ctaPintarTotal();
 }
 
 // ---------------------------------------------------------------- LA TASA
@@ -261,7 +486,7 @@ async function pedirTasa() {
   if (g && g.v > 1) { TASA = g.v; TASA_FECHA = g.f || ""; TASA_ORIGEN = "guardada"; }
 }
 
-pedirTasa().then(() => { pintarPieTasa(); buscar(); });
+pedirTasa().then(() => { pintarPieTasa(); buscar(); ctaBarra(); ctaPintarHoja(); });   // 🧾 [CUENTA-PORTAL]
 
 let tm = null;
 q.addEventListener("input", () => { clearTimeout(tm); tm = setTimeout(buscar, 60); });
@@ -452,6 +677,7 @@ function escanear() {
 // Si la página abre con internet, el lector se baja de una vez: después sirve aunque se caiga el internet.
 setTimeout(() => { if (navigator.onLine !== false) escLib().catch(() => {}); }, 2500);
 pintar([], "");
+ctaBarra();   // 🧾 [CUENTA-PORTAL] la cuenta que ya estaba (si se recargó la página)
 </script>
 </body>
 </html>
